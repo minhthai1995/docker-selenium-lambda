@@ -1,7 +1,8 @@
 from selenium import webdriver
 from tempfile import mkdtemp
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def handler(event=None, context=None):
     options = webdriver.ChromeOptions()
@@ -20,5 +21,15 @@ def handler(event=None, context=None):
     options.add_argument("--remote-debugging-port=9222")
     chrome = webdriver.Chrome("/opt/chromedriver",
                               options=options)
-    chrome.get("https://example.com/")
-    return chrome.find_element(by=By.XPATH, value="//html").text
+    # chrome.get("https://example.com/")
+    TOKEN = "5839198206:AAE0YtQdAC6ENm4Wmf9-XK5_11iAlZk8nNM"
+    chat_id = "5206248219"
+    chrome.get("https://www.binance.com/en/support/announcement")
+    # while True:
+    latest_announcement = WebDriverWait(driver, 100).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'css-2gltwa')))
+    announcement = latest_announcement.get_attribute("innerHTML")
+    announcement = announcement.replace('&', '')
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={announcement}"
+    print(requests.get(url).json()) # this sends the message
+    return announcement
