@@ -1,3 +1,4 @@
+import requests
 from selenium import webdriver
 from tempfile import mkdtemp
 from selenium.webdriver.common.by import By
@@ -26,7 +27,7 @@ def handler(event=None, context=None):
     chat_id = "5206248219"
     chrome.get("https://www.binance.com/en/support/announcement")
     # while True:
-    latest_announcement = WebDriverWait(driver, 100).until(
+    latest_announcement = WebDriverWait(chrome, 100).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'css-2gltwa')))
     announcement = latest_announcement.get_attribute("innerHTML")
     announcement = announcement.replace('&', '')
