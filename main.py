@@ -25,12 +25,26 @@ def handler(event=None, context=None):
     # chrome.get("https://example.com/")
     TOKEN = "5839198206:AAE0YtQdAC6ENm4Wmf9-XK5_11iAlZk8nNM"
     chat_id = "5206248219"
-    chrome.get("https://www.binance.com/en/support/announcement")
+    # all news
+    # chrome.get("https://www.binance.com/en/support/announcement")
+    # latest news
+    chrome.get("https://www.binance.com/en/support/announcement/latest-binance-news?c=49&navId=49")
+    # latest activities
+    # chrome.get("https://www.binance.com/en/support/announcement/latest-activities?c=93&navId=93")
+
     # while True:
+    # all news
+    #latest_announcement = WebDriverWait(chrome, 100).until(
+    #        EC.presence_of_element_located((By.CLASS_NAME, 'css-2gltwa')))
+    # latest news + activities
     latest_announcement = WebDriverWait(chrome, 100).until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'css-2gltwa')))
+            EC.presence_of_element_located((By.CLASS_NAME, 'css-f94ykk')))
+            
     announcement = latest_announcement.get_attribute("innerHTML")
     announcement = announcement.replace('&', '')
+    announcement = 'Latest News:' + announcement
+    # announcement = 'Latest Activities:' + announcement
+
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={announcement}"
     print(requests.get(url).json()) # this sends the message
     return announcement
