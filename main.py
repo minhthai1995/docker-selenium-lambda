@@ -28,9 +28,9 @@ def handler(event=None, context=None):
     # all news
     # chrome.get("https://www.binance.com/en/support/announcement")
     # latest news
-    chrome.get("https://www.binance.com/en/support/announcement/latest-binance-news?c=49&navId=49")
+    # chrome.get("https://www.binance.com/en/support/announcement/latest-binance-news?c=49&navId=49")
     # latest activities
-    # chrome.get("https://www.binance.com/en/support/announcement/latest-activities?c=93&navId=93")
+    chrome.get("https://www.binance.com/en/support/announcement/latest-activities?c=93&navId=93")
 
     # while True:
     # all news
@@ -42,8 +42,8 @@ def handler(event=None, context=None):
             
     announcement = latest_announcement.get_attribute("innerHTML")
     announcement = announcement.replace('&', '')
-    announcement = 'Latest News:' + announcement
-    # announcement = 'Latest Activities:' + announcement
+    # announcement = 'Latest News:' + announcement
+    announcement = 'Latest Activities:' + announcement
 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={announcement}"
     print(requests.get(url).json()) # this sends the message
